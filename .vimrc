@@ -81,11 +81,11 @@ function Special(cmd)
 								!g++ '%' -o '%<' -O2 -pg
 						endif
 						if (l:compileflag == 21)
-								!g++ '%' -o '%<' -c
+								!g++ '%' -c
 								let objectflag = 1
 						endif
 						if (l:compileflag == 22)
-								!g++ '%' -o '%<' -O2 -c
+								!g++ '%' -O2 -c
 								let objectflag = 1
 						endif
 						let compileflag = -1
