@@ -1,0 +1,285 @@
+\documentclass[a4paper, 11pt]{article}
+
+%%%%%% 导入包 %%%%%%
+\usepackage{xeCJK}
+\usepackage{graphicx}
+\usepackage[unicode]{hyperref}
+\usepackage{xcolor}
+\usepackage{cite}
+\usepackage{indentfirst}
+\usepackage{booktabs}				%支持表格
+
+\setmainfont{Times New Roman}
+\setCJKmainfont[BoldFont={黑体},ItalicFont={楷体-简}]{黑体-简 细体}
+\setsansfont{黑体}
+
+
+%%%%%% 设置字号 %%%%%%
+\newcommand{\chuhao}{\fontsize{42pt}{\baselineskip}\selectfont}
+\newcommand{\xiaochuhao}{\fontsize{36pt}{\baselineskip}\selectfont}
+\newcommand{\yihao}{\fontsize{28pt}{\baselineskip}\selectfont}
+\newcommand{\xiaoyihao}{\fontsize{25pt}{\baselineskip}\selectfont}
+\newcommand{\erhao}{\fontsize{21pt}{\baselineskip}\selectfont}
+\newcommand{\xiaoerhao}{\fontsize{18pt}{\baselineskip}\selectfont}
+\newcommand{\sanhao}{\fontsize{15.75pt}{\baselineskip}\selectfont}
+\newcommand{\sihao}{\fontsize{14pt}{\baselineskip}\selectfont}
+\newcommand{\xiaosihao}{\fontsize{12pt}{\baselineskip}\selectfont}
+\newcommand{\wuhao}{\fontsize{10.5pt}{\baselineskip}\selectfont}
+\newcommand{\xiaowuhao}{\fontsize{9pt}{\baselineskip}\selectfont}
+\newcommand{\liuhao}{\fontsize{7.875pt}{\baselineskip}\selectfont}
+\newcommand{\qihao}{\fontsize{5.25pt}{\baselineskip}\selectfont}
+
+%%%% 设置 section 属性 %%%%
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+{-1.5ex \@plus -.5ex \@minus -.2ex}%
+{.5ex \@plus .1ex}%
+{\normalfont\sanhao\CJKfamily{hei}}}
+\makeatother
+
+%%%% 设置 subsection 属性 %%%%
+\makeatletter
+\renewcommand\subsection{\@startsection{subsection}{1}{\z@}%
+{-1.25ex \@plus -.5ex \@minus -.2ex}%
+{.4ex \@plus .1ex}%
+{\normalfont\sihao\CJKfamily{hei}}}
+\makeatother
+
+%%%% 设置 subsubsection 属性 %%%%
+\makeatletter
+\renewcommand\subsubsection{\@startsection{subsubsection}{1}{\z@}%
+{-1ex \@plus -.5ex \@minus -.2ex}%
+{.3ex \@plus .1ex}%
+{\normalfont\xiaosihao\CJKfamily{hei}}}
+\makeatother
+
+%%%% 段落首行缩进两个字 %%%%
+\makeatletter
+\let\@afterindentfalse\@afterindenttrue
+\@afterindenttrue
+\makeatother
+\setlength{\parindent}{2em}  %中文缩进两个汉字位
+
+
+%%%% 下面的命令重定义页面边距，使其符合中文刊物习惯 %%%%
+\addtolength{\topmargin}{-54pt}
+\setlength{\oddsidemargin}{0.63cm}  % 3.17cm - 1 inch
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textwidth}{14.66cm}
+\setlength{\textheight}{24.00cm}    % 24.62
+
+%%%% 下面的命令设置行间距与段落间距 %%%%
+\linespread{1.4}
+% \setlength{\parskip}{1ex}
+\setlength{\parskip}{0.5\baselineskip}
+
+%%%% 定理类环境的定义 %%%%
+\newtheorem{example}{例}             % 整体编号
+\newtheorem{algorithm}{算法}
+\newtheorem{theorem}{定理}[section]  % 按 section 编号
+\newtheorem{definition}{定义}
+\newtheorem{axiom}{公理}
+\newtheorem{property}{性质}
+\newtheorem{proposition}{命题}
+\newtheorem{lemma}{引理}
+\newtheorem{corollary}{推论}
+\newtheorem{remark}{注解}
+\newtheorem{condition}{条件}
+\newtheorem{conclusion}{结论}
+\newtheorem{assumption}{假设}
+
+%%%% 重定义 %%%%
+\renewcommand{\contentsname}{目录}  % 将Contents改为目录
+\renewcommand{\abstractname}{摘要}  % 将Abstract改为摘要
+\renewcommand{\refname}{参考文献}   % 将References改为参考文献
+\renewcommand{\indexname}{索引}
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
+\renewcommand{\appendixname}{附录}
+\renewcommand{\algorithm}{算法}
+
+%%%% 定义标题格式，包括title，author，affiliation，email等 %%%%
+\title{\xiaoyihao 面向对象程序设计个人大作业\\ \erhao 基于SAT的路径匹配问题}
+\author{毛晗扬 \footnote{电子邮件: maohy16@mails.tsinghua.edu.cn，学号: 2016011275}\\[2ex]
+\xiaosihao 清华大学计算机系 计62\\[2ex]
+}
+\date{2017年5月}
+
+%%%% 正文开始 %%%%
+\usepackage{wrapfig}
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\section{问题概述}
+\begin{wrapfigure}{r}{0.4\textwidth}
+	\includegraphics[width=0.35\textwidth]{game.png} 
+\end{wrapfigure}
+一个N*M的方格图中，有一些不同颜色的终端，每种颜色恰好有两个终端.同时在一些位置存在“不可布线点”.现在需要生成一个合理的布线方案，使得相同颜色的两个终端两两相连，并且布线不想交，不经过不可布线点.
+
+生成的布线方案应该依次满足：
+
+\begin{itemize}
+	\item 连通的终端对数尽可能大
+	\item 所有布线位置的总数尽可能小（及总线长尽可能小）
+\end{itemize}
+
+\section{数学建模}
+
+\subsection{用转化为布尔可满足性问题}
+本问题可以通过数学建模转化为一个SAT问题.对于一种布线方案，我们可以将其连接的两个终端随意选择一个作为该布线的起点位置.
+
+令$st_{w}$表示第w种布线的两个终端中我们选择的起点.
+
+令 $p(i,j)$ 代表地图上的每一个位置$(i,j)$；$w$代表第$w$种布线；$t$代表离路径起点距离$t$（也可理解为从起点可以经过布线在$t$时刻到达某个位置）.
+
+
+同时，令
+
+$$
+c^{t}_{p,w}
+$$
+
+表示从$w$颜色的两个终端的起点终端出发，在$t$时刻能否到达$p$位置.这是一个Boolean数组，最为边界，$t^*$表示t能取到的最大值
+
+在这种定义下，对于每一种可能的解，我们都可以找到一组$c^t_{p,w}$的构造方式以满足.同理，如果我们要求出一个解，我们就需要解决满足题目限制的布尔可满足性问题.
+
+\subsection{限制条件}
+\subsubsection{位置可达条件}
+如果一个位置$c^t_{p,w}$确实在t时刻可以从$st_w$到达p位置，$c^t_{p,w}$才可能为真.\footnote{$N_5(p)$表示位置p及其周围的四个位置}
+
+$$
+c^t_{p,w} \Rightarrow \bigvee c^{t-1}_{N_5(p),w} 
+$$
+
+
+
+同时，作为边界条件，我们需要限制$c^0_{p,w}$，以及$c^{t^*}_{p,w}$的值，令$r_{p}$表示我们选择连接终端p
+$$
+r_{p} \Rightarrow c^0_{p,w} \land c^{t^*}_{p,w}
+$$
+
+\subsubsection{路径相交条件}
+
+令$d_{p,w}$表示位置$p$已经被$w$标号的终端的连线覆盖，则显然不能被其他$w'$覆盖
+$$
+d_{p,w} = \bigvee_t c^t_{p,w}
+$$
+
+则
+
+$$
+\forall_p \forall_{w_1} \forall_{w_2} \overline{d_{p,w_1} \land d_{p,w_2}}
+$$
+
+\subsubsection{最优化条件}
+我们分别需要最优化连接终端对数以及被占位置总数
+
+$$
+\mathbf{maximize} \ tot\_path = \sum_{w_0 \in w} to\_int(r_{w_0})
+$$
+
+$$
+\mathbf{mimimize} \ tot\_length = \sum_{p_0 \in p} to\_int(\bigvee_{t,w} c^t_{p,w})
+$$
+
+\subsection{实现细节}
+Z3是微软研究出来的一个公理推演系统，可以判断若干命题的可满足性和最优化问题。恰好可以用来解决这个问题。
+
+详细代码架构可以参见代码README.md
+
+\subsubsection{基于二分}
+我们可以将优化条件改为二分判断可行性。
+
+首先二分$tot\_path$，设当前二分值$v$，则添加限制条件
+
+$$
+tot\_path > v
+$$
+
+判断是否有满足条件的解
+
+
+\subsubsection{基于Z3-Optimize}
+Z3有专门的最大化、最小化单个变量的函数，可以直接调用该函数得到最优解，实际sat模型建立和之前相同。
+
+\section{运行表现}
+\subsection{算法比较}
+对基于二分和基于Optimize的两个算法进行比较，结果如下表
+
+\begin{table}[!htp]
+	\centering
+	\begin{tabular}{@{}lllll@{}}
+		\toprule
+		行数 & 列数 & 终端对数 & 算法 & 时间 \\ \midrule
+		3 & 3 & 3 & 内置优化 & 0min0s96ms \\
+		3 & 3 & 3 & 二分 & 0min0s9ms \\
+		4 & 4 & 4 & 内置优化 & 0min0s338ms \\
+		4 & 4 & 4 & 二分 & 0min0s28ms \\
+		5 & 5 & 5 & 内置优化 & 0min0s839ms \\
+		5 & 5 & 5 & 二分 & 0min0s61ms \\
+		6 & 6 & 6 & 内置优化 & 0min2s36ms \\
+		6 & 6 & 6 & 二分 & 0min0s143ms \\
+		7 & 7 & 7 & 内置优化 & 0min5s549ms \\
+		7 & 7 & 7 & 二分 & 0min0s303ms \\
+		8 & 8 & 8 & 内置优化 & 0min30s63ms \\
+		8 & 8 & 8 & 二分 & 0min1s252ms \\
+		\bottomrule
+	\end{tabular}
+	\caption{算法运行效率对比}
+	\label{my-label}
+\end{table}
+
+可见通过Z3内部的优化复杂度远小于二分法的O(logN)。
+
+\subsection{运算时间增长趋势}
+\begin{table}[!htp]
+	\centering
+	\begin{tabular}{@{}lllll@{}}
+		\toprule
+		行数 & 列数 & 终端对数 & 算法 & 时间 \\ \midrule
+		3 & 3 & 3 & 内置优化 & 0min0s9ms \\
+		4 & 4 & 4 & 内置优化 & 0min0s26ms \\
+		5 & 5 & 5 & 内置优化 & 0min0s61ms \\
+		6 & 6 & 6 & 内置优化 & 0min0s142ms \\
+		7 & 7 & 7 & 内置优化 & 0min0s308ms \\
+		8 & 8 & 8 & 内置优化 & 0min1s321ms \\
+		9 & 9 & 9 & 内置优化 & 0min1s202ms \\
+		10 & 10 & 10 & 内置优化 & 0min4s269ms \\
+		11 & 11 & 11 & 内置优化 & 0min58s926ms \\
+		12 & 12 & 12 & 内置优化 & 1min30s286ms \\
+		\bottomrule
+	\end{tabular}
+	\caption{算法时间随地图大小增长}
+	\label{my-label}
+\end{table}
+
+\begin{table}[!htp]
+	\centering
+	\begin{tabular}{@{}lllll@{}}
+		\toprule
+		行数 & 列数 & 终端对数 & 算法 & 时间 \\ \midrule
+		9 & 9 & 9 & 内置优化 & 0min1s68ms \\
+		9 & 9 & 10 & 内置优化 & 0min1s249ms \\
+		9 & 9 & 11 & 内置优化 & 0min2s598ms \\
+		9 & 9 & 12 & 内置优化 & 0min3s414ms \\
+		9 & 9 & 13 & 内置优化 & 0min9s968ms \\
+		9 & 9 & 14 & 内置优化 & 0min11s428ms \\
+		9 & 9 & 15 & 内置优化 & 0min19s321ms \\
+		9 & 9 & 16 & 内置优化 & 0min21s300ms \\
+		9 & 9 & 17 & 内置优化 & 0min16s925ms \\
+		9 & 9 & 18 & 内置优化 & 0min24s924ms \\
+		9 & 9 & 19 & 内置优化 & 0min45s190ms \\
+		9 & 9 & 20 & 内置优化 & 1min43s530ms \\
+		9 & 9 & 21 & 内置优化 & 2min16s237ms \\
+		9 & 9 & 22 & 内置优化 & 6min1s502ms \\
+		\bottomrule
+	\end{tabular}
+	\caption{算法时间随终端对数增长}
+	\label{my-label}
+\end{table}
+
+从上面两张表中可以看出，代码运行时间同时受到地图规模和终端对数所影响，任意一个较小都会有很高的速度。
+\end{document}
