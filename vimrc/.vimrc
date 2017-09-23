@@ -4,7 +4,7 @@ set encoding=utf-8
 
 function Compile()
 		if &filetype == 'cpp'
-				exec "!g++ % -o %< -g -Wall -Wextra -Wconversion"
+				exec "!g++ % -o %< -g -Wall -Wextra -Wconversion -std=c++11"
 		elseif &filetype == 'c'
 				exec "!gcc % -o %< -g -Wall -Wextra -Wconversion"
 		elseif &filetype == 'pas'
@@ -53,6 +53,7 @@ set fdm=marker
 set number
 set tabstop=4
 set softtabstop=4
+set shiftwidth=4
 syntax on
 filetype plugin indent on
 imap jj <esc>
