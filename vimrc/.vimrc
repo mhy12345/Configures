@@ -62,5 +62,5 @@ map <F5> : call Debug() <CR>
 map <F6> : call Run() <CR>
 map <F8> : ! g++ % -o %< -O2 <CR>
 map <F12> : ! subl ./% <CR>
-map <F2> : ! python3 % <CR>
+map <F2> : ! python % <CR>
 colors evening
