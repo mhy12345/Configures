@@ -47,13 +47,13 @@ function Run()
 endfunction
 
 set hlsearch
-set mouse=a
 set smartindent
-set fdm=marker
 set number
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+set expandtab
+set mouse=a
 syntax on
 filetype plugin indent on
 imap jj <esc>
