@@ -1,0 +1,27 @@
+#!/bin/bash
+if [[ $1 = "edit" ]];
+then 
+	cat /Users/toby/Configures/docs/shortcuts/sc_ssh
+	vim /Users/toby/Configures/docs/shortcuts/sc_ssh
+fi
+if [[ $1 = "thu" ]];
+then 
+    echo ssh THU@thu.server.mhy12345.xyz -p8013 -L 8889:*:8888 -L 6006:*:6006
+    ssh THU@thu.server.mhy12345.xyz -p 8013 -L 8889:*:8888 -L 6006:*:6006
+fi
+if [[ $1 = "lab" ]];
+then 
+  echo ssh maohy@outter.lab.server.mhy12345.xyz -p 3522 -L 27017:*:27017 -L 8888:*:8888 -L 6007:*:6007
+  ssh maohy@outter.lab.server.mhy12345.xyz -p 3522 -L 27017:*:27017 -L 8888:*:8888 -L 6007:*:6007
+fi
+if [[ $1 = "lab-inner" ]];
+then 
+	echo ssh maohy@inner.lab.server.mhy12345.xyz -L 27017:*:27017
+	ssh maohy@inner.lab.server.mhy12345.xyz -L 27017:*:27017
+fi
+
+if [[ $1 = "mthread" ]];
+then 
+	echo ssh 2016011275@166.111.227.244 -p19917
+	ssh 2016011275@166.111.227.244 -p19917
+fi
