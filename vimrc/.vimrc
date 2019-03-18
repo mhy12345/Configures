@@ -1,7 +1,13 @@
+"ctags
+set tags=tags;
+set autochdir
+
+"encoding
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
 set encoding=utf-8
 
+"functions
 function Compile()
 		if &filetype == 'cpp'
 				exec "!g++ % -o %< -g -Wall -Wextra -Wconversion -std=c++11"
@@ -46,6 +52,7 @@ function Run()
 		endif
 endfunction
 
+"basic settings
 set hlsearch
 set smartindent
 set number
@@ -64,3 +71,4 @@ map <F8> : ! g++ % -o %< -O2 <CR>
 map <F12> : ! subl ./% <CR>
 map <F2> : ! python % <CR>
 colors evening
+
