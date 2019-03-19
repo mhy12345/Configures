@@ -10,8 +10,17 @@
 \usepackage{booktabs}				%支持表格
 
 \setmainfont{Times New Roman}
-\setCJKmainfont[BoldFont={黑体},ItalicFont={楷体-简}]{黑体-简 细体}
-\setsansfont{黑体}
+\setCJKmainfont[BoldFont=STHeiti, ItalicFont=STKaiti]{STSong}
+\setCJKsansfont[BoldFont=STHeiti]{STXihei}
+\setCJKmonofont{STFangsong}
+\setCJKfamilyfont{stsong}{STSong}
+\setCJKfamilyfont{sthei}{STHeiti}
+\setCJKfamilyfont{stkai}{STKaiti}
+\setCJKfamilyfont{stfs}{STFangsong}
+
+
+
+
 
 
 %%%%%% 设置字号 %%%%%%
@@ -106,7 +115,6 @@
 \date{2017年5月}
 
 %%%% 正文开始 %%%%
-\usepackage{wrapfig}
 \begin{document}
 \maketitle
 \newpage
@@ -114,9 +122,6 @@
 \newpage
 
 \section{问题概述}
-\begin{wrapfigure}{r}{0.4\textwidth}
-	\includegraphics[width=0.35\textwidth]{game.png} 
-\end{wrapfigure}
 一个N*M的方格图中，有一些不同颜色的终端，每种颜色恰好有两个终端.同时在一些位置存在“不可布线点”.现在需要生成一个合理的布线方案，使得相同颜色的两个终端两两相连，并且布线不想交，不经过不可布线点.
 
 生成的布线方案应该依次满足：
