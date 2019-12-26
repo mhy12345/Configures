@@ -1,0 +1,10 @@
+{
+	"server":"ipv4.vpn.mhy12345.xyz",
+	"server_port":8389,
+	"local_address": "127.0.0.1",
+	"local_port":1880,
+	"password":"1234512345",
+	"timeout":300,
+	"method":"aes-256-cfb",
+	"fast_open": false
+}
