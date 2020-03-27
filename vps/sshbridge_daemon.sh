@@ -1,7 +1,7 @@
 #!/bin/bash
 while true
 do
-	ssh -R 33555:localhost:8389 hja@mhy12345.xyz -p 2233 bash idle.sh & ssh_pid=$!
+	ssh -R 33555:localhost:8389 hja@mhy12345.xyz -p 2233 bash sshbridge_idle.sh & ssh_pid=$!
 	echo ssh pid is $ssh_pid
 	while true
 	do
