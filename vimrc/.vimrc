@@ -38,7 +38,7 @@ function Run()
 		if &filetype == 'cpp'
 				exec "!time ./%<"
 		elseif &filetype == 'tex'
-				exec "!okular './%<.pdf'"
+				exec "!evince './%<.pdf'"
 		elseif &filetype == 'java'
 				exec "!java %<"
 		elseif &filetype == 'ruby'
