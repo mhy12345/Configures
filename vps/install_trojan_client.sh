@@ -1,11 +1,10 @@
-#apt install -y trojan
-#cp /usr/share/doc/trojan/examples/client.json-example /etc/trojan/config.json 
-#apt install -y privoxy
-#trojan
+apt install -y trojan
+cp /usr/share/doc/trojan/examples/client.json-example /etc/trojan/config.json 
+apt install -y privoxy
 
 tee -a /etc/privoxy/config <<-'EOF'
-forward-socks5t / 127.0.0.1:1080 .
-listen-address  127.0.0.1:1081
+forward-socks5 / 127.0.0.1:1080 .
+listen-address 127.0.0.1:1087
 EOF
 
 
@@ -19,4 +18,4 @@ EOF
 
 systemctl restart privoxy
 
-trojan
+#trojan
